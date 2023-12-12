@@ -27,6 +27,7 @@ public class DriveWithController extends CommandBase {
         var left = MathUtil.clamp(yInput - xInput, -0.40, 0.40);
         var right = MathUtil.clamp(yInput + xInput, -0.40, 0.40);
         RobotContainer.driveTrain.tankDriveTwoSticks(left, right);
+        System.out.println("Inside drive with controller");
     }
 
     @Override
