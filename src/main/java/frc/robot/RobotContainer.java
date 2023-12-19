@@ -49,9 +49,11 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    // WaitCommand waitCmd = new WaitCommand(5);
+    // waitCmd.addRequirements(driveTrain);
     // m_driverController.a().onTrue(
     //   new InstantCommand(() -> driveTrain.tankDriveTwoSticks(0.33, 0.33), driveTrain)
-    //   .andThen(new SubsystemWaitCommand(15,driveTrain))
+    //   .andThen(waitCmd)
     //   .andThen(new InstantCommand(() -> driveTrain.tankDriveTwoSticks(0, 0), driveTrain))
     // );
   }

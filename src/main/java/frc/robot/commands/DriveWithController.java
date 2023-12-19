@@ -12,7 +12,7 @@ public class DriveWithController extends CommandBase {
     
     @Override
     public void initialize() {
-
+        System.out.println("Drive with controller");
     }
 
     @Override
