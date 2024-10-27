@@ -21,16 +21,6 @@ public class TankDrive extends SubsystemBase {
   private final VictorSPX rightRear = new VictorSPX(RobotMap.kRightRearDriveMotor);
 
   /**
-   * Tank drive control for two joysticks.
-   * 
-   * @param left  the left joystick input
-   * @param right the right joystick input
-   */
-  public void controlWithTwoSticks(double leftInput, double rightInput) {
-    this.setDriveMotors(leftInput, rightInput);
-  }
-
-  /**
    * Tank drive control for one joystick.
    * 
    * @param x the x-input of the joystick
