@@ -4,8 +4,9 @@
 
 package frc.robot;
 
-import frc.robot.commands.DriveWithController;
 import frc.robot.subsystems.TankDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -31,11 +32,13 @@ public final class RobotContainer {
   public RobotContainer() {
     this.configureDefaultCommands();
     this.configureBindings();
+
+    SmartDashboard.putData(CommandScheduler.getInstance());
   }
 
   /** Sets the default commands for robot subsystems. */
   private void configureDefaultCommands() {
-    driveTrain.setDefaultCommand(new DriveWithController());
+    driveTrain.setDefaultCommand(driveTrain.controlWithXboxController(driverController, Constants.kMaxTankDriveOutputPercent));
   }
 
   /**

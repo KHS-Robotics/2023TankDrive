@@ -11,14 +11,66 @@ import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.util.sendable.SendableBuilder;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.RobotMap;
 
+/**
+ * Tank Drive subsystem.
+ */
 public class TankDrive extends SubsystemBase {
-  private final VictorSPX leftFront = new VictorSPX(RobotMap.kLeftFrontDriveMotor);
-  private final VictorSPX leftRear = new VictorSPX(RobotMap.kLeftRearDriveMotor);
-  private final VictorSPX rightFront = new VictorSPX(RobotMap.kRightFrontDriveMotor);
-  private final VictorSPX rightRear = new VictorSPX(RobotMap.kRightRearDriveMotor);
+  private final VictorSPX leftFront;
+  private final VictorSPX leftRear;
+  private final VictorSPX rightFront;
+  private final VictorSPX rightRear;
+
+  /**
+   * Create the Tank Drive.
+   */
+  public TankDrive() {
+    leftFront = new VictorSPX(RobotMap.kLeftFrontDriveMotor);
+    leftRear = new VictorSPX(RobotMap.kLeftRearDriveMotor);
+    rightFront = new VictorSPX(RobotMap.kRightFrontDriveMotor);
+    rightRear = new VictorSPX(RobotMap.kRightRearDriveMotor);
+  }
+
+  /** {@inheritDoc}} */
+  @Override
+  public void initSendable(SendableBuilder builder) {
+    super.initSendable(builder);
+
+  }
+
+  /** {@inheritDoc}} */
+  @Override
+  public void periodic() {
+  }
+
+  /**
+   * Command to control the tank drive with an Xbox controller.
+   * 
+   * @param hid the xbox controller
+   * @return the command to control the tank drive with an Xbox controller
+   */
+  public Command controlWithXboxController(CommandXboxController hid, double maxPercentSpeed) {
+    var cmd = runEnd(() -> {
+      // left stick x-axis controls rotation
+      var xInput = hid.getLeftX();
+
+      // left trigger is backwards, right trigger is forwards
+      var yInput = -hid.getLeftTriggerAxis() + hid.getRightTriggerAxis();
+
+      // calculate left and right from x and y
+      var left = MathUtil.clamp(yInput - xInput, -maxPercentSpeed, maxPercentSpeed);
+      var right = MathUtil.clamp(yInput + xInput, -maxPercentSpeed, maxPercentSpeed);
+
+      setDriveMotors(left, right);
+    }, this::stop);
+
+    return cmd.withName("DriveTankWithXbox");
+  }
 
   /**
    * Tank drive control for one joystick.
@@ -49,6 +101,26 @@ public class TankDrive extends SubsystemBase {
   }
 
   /**
+   * Command to stops the tank drive motors.
+   * 
+   * @return the command to stop the tank drive motors
+   */
+  public Command stopCommand() {
+    var cmd = runOnce(this::stop);
+    return cmd.withName("StopTankDrive");
+  }
+
+  /**
+   * Stops the tank drive motors.
+   */
+  public void stop() {
+    leftFront.set(VictorSPXControlMode.PercentOutput, 0);
+    leftRear.set(VictorSPXControlMode.PercentOutput, 0);
+    rightFront.set(VictorSPXControlMode.PercentOutput, 0);
+    rightRear.set(VictorSPXControlMode.PercentOutput, 0);
+  }
+
+  /**
    * Clamps the given value to between -1 and 1.
    * 
    * @param value the value to clamp
@@ -56,9 +128,5 @@ public class TankDrive extends SubsystemBase {
    */
   private double normalizeMotorOutput(double value) {
     return MathUtil.clamp(value, -1, 1);
-  }
-
-  @Override
-  public void periodic() {
   }
 }

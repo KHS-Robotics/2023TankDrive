@@ -17,16 +17,13 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-  private RobotContainer robotContainer;
+  private final RobotContainer robotContainer;
 
   public Robot() {
     // for debugging
-    CommandScheduler.getInstance()
-        .onCommandInitialize((command) -> System.out.println(command.getName() + " started."));
-    CommandScheduler.getInstance()
-        .onCommandInterrupt((command) -> System.out.println(command.getName() + " interrupted."));
-    CommandScheduler.getInstance()
-        .onCommandFinish((command) -> System.out.println(command.getName() + " ended."));
+    CommandScheduler.getInstance().onCommandInitialize((cmd) -> System.out.println(cmd.getName() + " started."));
+    CommandScheduler.getInstance().onCommandInterrupt((cmd) -> System.out.println(cmd.getName() + " interrupted."));
+    CommandScheduler.getInstance().onCommandFinish((cmd) -> System.out.println(cmd.getName() + " ended."));
 
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our
