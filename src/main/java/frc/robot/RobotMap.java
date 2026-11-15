@@ -20,6 +20,11 @@ public final class RobotMap {
   // Drive Train
   public static final int kLeftFrontDriveMotor = 8;
   public static final int kLeftRearDriveMotor = 6;
-  public static final int kRightFrontDriveMotor = 7;
+  // public static final int kRightFrontDriveMotor = 7;
   public static final int kRightRearDriveMotor = 5;
+
+    public static final int kRightFrontDriveMotor = 9;
+    public static final int kRightFrontSpinMotor = 8;
+    
+
 }

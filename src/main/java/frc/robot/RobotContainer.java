@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.subsystems.TankDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -38,7 +39,7 @@ public final class RobotContainer {
 
   /** Sets the default commands for robot subsystems. */
   private void configureDefaultCommands() {
-    driveTrain.setDefaultCommand(driveTrain.controlWithXboxController(driverController, Constants.kMaxTankDriveOutputPercent));
+    driveTrain.setDefaultCommand(driveTrain.controlWithXboxController(driverController, 0.4));
   }
 
   /**
@@ -55,5 +56,6 @@ public final class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    
   }
 }

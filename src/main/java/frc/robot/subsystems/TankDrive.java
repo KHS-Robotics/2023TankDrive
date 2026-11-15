@@ -21,10 +21,10 @@ import frc.robot.RobotMap;
  * Tank Drive subsystem.
  */
 public class TankDrive extends SubsystemBase {
-  private final VictorSPX leftFront;
-  private final VictorSPX leftRear;
-  private final VictorSPX rightFront;
-  private final VictorSPX rightRear;
+  private  VictorSPX leftFront;
+  private  VictorSPX leftRear;
+  private  VictorSPX rightFront;
+  private  VictorSPX rightRear;
 
   /**
    * Create the Tank Drive.
